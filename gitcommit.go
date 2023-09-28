@@ -27,7 +27,7 @@ func main() {
 
     for {
         // Generate the commit message
-        prompt := fmt.Sprintf("Generate a commit message for the following changes:\n%s", diff)
+        prompt := fmt.Sprintf("Generate a git commit message for the following changes:\n%s", diff)
 
         generatedText, err := generateCommitMessage(prompt, modelEngine, openaiAPIKey)
         if err != nil {
@@ -35,10 +35,10 @@ func main() {
         }
 
         // Modify the commit message and present it to the user
-        message := generatedText[len("Commit message"):]
+        message := generatedText
 
-        fmt.Printf("Generated commit message:\n%s\n", message)
-        userInput := getUserInput("Accept commit message? (y/n/e): ")
+        fmt.Printf("Suggested commit message:\n%s\n", message)
+        userInput := getUserInput("Accept this generated commit message? (y/n/e): ")
 
         // Commit the changes or regenerate the message
         if userInput == "y" {
@@ -46,12 +46,12 @@ func main() {
             fmt.Println("Changes committed!")
             break
         } else if userInput == "e" {
-            editedText := getUserInput("Enter edited commit message: ")
+            editedText := getUserInput("Enter your commit message: ")
             commitChanges(editedText)
             fmt.Println("Changes committed!")
             break
         } else {
-            fmt.Println("Regenerating commit message...")
+            fmt.Println("Please wait...Regenerating commit message...")
         }
     }
 }
@@ -74,7 +74,7 @@ func generateCommitMessage(prompt, modelEngine, openaiAPIKey string) (string, er
             "model":     modelEngine,
             "prompt":    prompt,
             "max_tokens": 50,       // Adjust the max tokens and other parameters as needed
-            "temperature": 0.5,     // Adjust the temperature value as needed
+            "temperature": 0,     // Adjust the temperature value as needed
         }).
         SetResult(&OpenAIResponse{}).
         Post("https://api.openai.com/v1/completions")
@@ -89,11 +89,11 @@ func generateCommitMessage(prompt, modelEngine, openaiAPIKey string) (string, er
 
     openAIResp, ok := resp.Result().(*OpenAIResponse)
     if !ok {
-        return "", fmt.Errorf("Unable to access the desired fields from resp.Result()")
+        return "", fmt.Errorf("Unable to retrieve commit message from Open API")
     }
 
     if len(openAIResp.Choices) == 0 {
-        return "", fmt.Errorf("No choices returned in the response")
+        return "", fmt.Errorf("No commit messages could be generated")
     }
 
     return openAIResp.Choices[0].Text, nil
