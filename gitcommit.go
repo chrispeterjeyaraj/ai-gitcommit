@@ -56,18 +56,27 @@ func main() {
     }
 }
 
+type OpenAIResponse struct {
+    Choices []struct {
+        Text string `json:"text"`
+    } `json:"choices"`
+}
+
 func generateCommitMessage(prompt, modelEngine, openaiAPIKey string) (string, error) {
     client := resty.New()
 
     resp, err := client.R().
-        SetHeader("Authorization", fmt.Sprintf("Bearer %s", openaiAPIKey)).
+        SetHeaders(map[string]string{
+            "Content-Type": "application/json",
+            "Authorization": fmt.Sprintf("Bearer %s", openaiAPIKey),
+        }).
         SetBody(map[string]interface{}{
             "model":     modelEngine,
-            "prompt":     prompt,
+            "prompt":    prompt,
             "max_tokens": 50,       // Adjust the max tokens and other parameters as needed
             "temperature": 0.5,     // Adjust the temperature value as needed
         }).
-        SetResult(map[string]interface{}{}).
+        SetResult(&OpenAIResponse{}).
         Post("https://api.openai.com/v1/completions")
 
     if err != nil {
@@ -78,27 +87,16 @@ func generateCommitMessage(prompt, modelEngine, openaiAPIKey string) (string, er
         return "", fmt.Errorf("API request failed with status code: %d", resp.StatusCode())
     }
 
-    result, ok := resp.Result().(map[string]interface{})
+    openAIResp, ok := resp.Result().(*OpenAIResponse)
     if !ok {
         return "", fmt.Errorf("Unable to access the desired fields from resp.Result()")
     }
 
-    choices, ok := result["choices"].([]interface{})
-    if !ok || len(choices) == 0 {
-        return "", fmt.Errorf("Unable to access the choices field or choices is empty")
+    if len(openAIResp.Choices) == 0 {
+        return "", fmt.Errorf("No choices returned in the response")
     }
 
-    choice, ok := choices[0].(map[string]interface{})
-    if !ok {
-        return "", fmt.Errorf("Unable to access the choice element")
-    }
-
-    text, ok := choice["text"].(string)
-    if !ok {
-        return "", fmt.Errorf("Unable to access the text field")
-    }
-
-    return text, nil
+    return openAIResp.Choices[0].Text, nil
 }
 
 func commitChanges(commitMessage string) {
