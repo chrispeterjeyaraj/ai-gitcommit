@@ -26,8 +26,8 @@ func main() {
     }
 
     for {
-        prompt:= fmt.Sprintf("Read the following git diff \n%s and write 1-2 sentences commit message in %s without mentioning lines or files. Explain why these changes were made (summarize the reasoning):\n", diff, "english")
         // Generate the commit message
+        prompt:= fmt.Sprintf("Read the following git diff \n%s and write a commit message in %s without mentioning code or files. Explain why these changes were made (summarize the reasoning):\n", diff, "english")
         // prompt := fmt.Sprintf("Generate a git commit message for the following changes:\n%s", diff)
 
         generatedText, err := generateCommitMessage(prompt, modelEngine, openaiAPIKey)
