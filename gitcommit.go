@@ -16,7 +16,8 @@ func main() {
         log.Fatal("ERROR: Please set your OpenAI API key as an environment variable named 'OPENAI_API_KEY'")
     }
 
-    modelEngine := "text-davinci-003" // Choose the GPT-3 model you want to use
+    // Choose the GPT-3 model you want to use
+    modelEngine := "text-davinci-003"
 
     // Define the input data
     diff, err := exec.Command("git", "diff", "--cached").Output()
