@@ -1,10 +1,10 @@
-# gpt-gitcommits
+# ai-gitcommit
 
-GPT Git Commit is a command-line tool that leverages OpenAI's GPT-3 language model to simplify the process of creating commit messages for Git commits. It addresses the common challenge of spending excessive time crafting commit messages that effectively describe code changes. With AI Commit, developers can generate a variety of high-quality commit message options within seconds, reducing the time spent on writing commit messages and allowing them to focus more on coding.
+AI Git Commit is a command-line tool that leverages OpenAI's GPT-3 language model to simplify the process of creating commit messages for Git commits. It addresses the common challenge of spending excessive time crafting commit messages that effectively describe code changes. With AI Commit, developers can generate a variety of high-quality commit message options within seconds, reducing the time spent on writing commit messages and allowing them to focus more on coding.
 
 ## Prerequisites :clipboard:
 
-Before installing AI Commit, you will need to generate your OpenAI API key.
+Before installing AI Git Commit, you will need to generate your OpenAI API key.
 
 You will also need to have GoLang installed. To check if you have Go installed, open your terminal window and run the following command:
 ```sh
@@ -16,10 +16,10 @@ If you see a version number in the output, it means that Go is installed. If not
 https://go.dev/doc/install
 ```
 ## Installation :inbox_tray:
-To install AI Commit, please follow the steps below:
-1. Clone the GPT GIT Commit repository to your local machine by running the following command in your terminal:
+To install AI Git Commit, please follow the steps below:
+1. Clone the AI GIT Commit repository to your local machine by running the following command in your terminal:
 ```sh
-git clone https://github.com/chrispeterjeyaraj/gpt-gitcommits
+git clone https://github.com/chrispeterjeyaraj/ai-gitcommit
 ```
 2. Navigate into the cloned repository by running the following command in your terminal:
 ```sh
