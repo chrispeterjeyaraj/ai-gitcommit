@@ -65,5 +65,5 @@ I welcome contributions from the community! If you find a bug 🐛 or have an id
 AI Commit is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more information.
 
 ----------
-- If you found GPT GIT Commit useful, please consider giving this repo a star ⭐️!
+- If you found AI GIT Commit useful, please consider giving this repo a star ⭐️!
 
