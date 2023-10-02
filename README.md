@@ -2,6 +2,8 @@
 
 AI Git Commit is a command-line tool that leverages OpenAI's GPT-3 language model to simplify the process of creating commit messages for Git commits. It addresses the common challenge of spending excessive time crafting commit messages that effectively describe code changes. With AI Commit, developers can generate a variety of high-quality commit message options within seconds, reducing the time spent on writing commit messages and allowing them to focus more on coding.
 
+[![Go](https://github.com/chrispeterjeyaraj/ai-gitcommit/actions/workflows/go.yml/badge.svg)](https://github.com/chrispeterjeyaraj/ai-gitcommit/actions/workflows/go.yml)
+
 ## Prerequisites :clipboard:
 
 Before installing AI Git Commit, you will need to generate your OpenAI API key.
